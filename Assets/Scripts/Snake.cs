@@ -7,31 +7,83 @@ public class Snake : MonoBehaviour
 
     private Vector2Int gridPosition;
     private Vector2Int startGridPosition;
-    private Vector2Int gridDirection;
+    private Vector2Int gridMoveDirection;
 
     private float verticalInput, horizontalInput;
-    private float gridTimer;
-    private float gridTimerMax = 1f;
-    // Start is called before the first frame update
+    private float gridMoveTimer;
+    private float gridMoveTimerMax = 1f;
+
     void Start()
     {
         startGridPosition = new Vector2Int(0, 0);
         gridPosition = startGridPosition;
-        gridDirection = new Vector2Int(0, 1);
+        gridMoveDirection = new Vector2Int(0, 1);
     }
 
-    // Update is called once per frame
     void Update()
     {
 
-        gridTimer += Time.deltaTime;
+        gridMoveTimer += Time.deltaTime;
+        HandleMoveDirection();
         //Check if timer surpassed the max timer
-        if (gridTimer >= gridTimerMax) {
+        if (gridMoveTimer >= gridMoveTimerMax) {
 
-            gridPosition += gridDirection;
-            gridTimer -= gridTimerMax; //Reset timer
+            gridPosition += gridMoveDirection;
+            gridMoveTimer -= gridMoveTimerMax; //Reset timer
 
             transform.position = new Vector3(gridPosition.x, gridPosition.y, 0);
         }
+    }
+
+    private void HandleMoveDirection()
+    {
+        verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        //Pressed W
+        if (verticalInput > 0) 
+        {
+            if (gridMoveDirection.x != 0) // Check if its going horizontal
+            {
+                //Change direction to UP
+                gridMoveDirection.x = 0;
+                gridMoveDirection.y = 1;
+            }
+        }
+
+        //Pressed S
+        if (verticalInput < 0) {
+            
+            if (gridMoveDirection.x != 0) 
+            {
+                //Change direction to DOWN
+                gridMoveDirection.x = 0;
+                gridMoveDirection.y = -1;
+            }
+        }
+
+        //Pressed D
+        if (horizontalInput > 0) {
+
+            if(gridMoveDirection.y != 0) 
+            {
+                //Change direction to RIGHT
+                gridMoveDirection.x = 1;
+                gridMoveDirection.y = 0;
+            }
+
+        }
+
+        //Pressed A
+        if(horizontalInput < 0)
+        {
+            if (gridMoveDirection.y != 0) 
+            {
+                //Change direction to LEFT    
+                gridMoveDirection.x = -1;
+                gridMoveDirection.y = 0;
+            }
+        }
+    
     }
 }
