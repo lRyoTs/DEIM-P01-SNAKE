@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
         GameObject snakeHeadGameObject = new GameObject("Snake Head");
         SpriteRenderer snakeSpriteRenderer = snakeHeadGameObject.AddComponent<SpriteRenderer>();
         snakeSpriteRenderer.sprite = GameAssets.Instance.snakeHeadSprite;
+        snakeHeadGameObject.AddComponent<Snake>();
     }
 
 }
