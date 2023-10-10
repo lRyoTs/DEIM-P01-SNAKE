@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private LevelGrid levelGrid;
+    private Snake snake;
+
     // Start is called before the first frame update
     void Start()
     {
         GameObject snakeHeadGameObject = new GameObject("Snake Head");
         SpriteRenderer snakeSpriteRenderer = snakeHeadGameObject.AddComponent<SpriteRenderer>();
         snakeSpriteRenderer.sprite = GameAssets.Instance.snakeHeadSprite;
-        snakeHeadGameObject.AddComponent<Snake>();
-    }
+        snake = snakeHeadGameObject.AddComponent<Snake>();
 
+        levelGrid = new LevelGrid(20,20);
+        snake.Setup(levelGrid);
+    }
 }

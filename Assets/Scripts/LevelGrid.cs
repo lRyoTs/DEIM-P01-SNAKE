@@ -9,17 +9,30 @@ public class LevelGrid
     private int width;
     private int height;
 
+    private GameObject foodGameObject;
+
     public LevelGrid(int w, int h) {
         this.width = w;
         this.height = h;
+
+        SpawnFood();
     }
 
     private void SpawnFood() {
         foodGridPosition = new Vector2Int(Random.Range(-width/2,width/2), Random.Range(-height/2,height/2));
 
-        GameObject foodGameObject = new GameObject("Food");
+        foodGameObject = new GameObject("Food");
         SpriteRenderer foodSpriteRenderer = foodGameObject.AddComponent<SpriteRenderer>();
         foodSpriteRenderer.sprite = GameAssets.Instance.foodSprite;
         foodGameObject.transform.position = new Vector3(foodGridPosition.x, foodGridPosition.y, 0);
+    }
+
+    public void SnakeMoved(Vector2Int snakeGridPosition)
+    {
+        if (snakeGridPosition == foodGridPosition)
+        {
+            Object.Destroy(foodGameObject);
+            SpawnFood();
+        }
     }
 }
