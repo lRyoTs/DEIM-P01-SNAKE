@@ -10,12 +10,18 @@ public class LevelGrid
     private int height;
 
     private GameObject foodGameObject;
+    private Snake snake;
 
     public LevelGrid(int w, int h) {
         this.width = w;
         this.height = h;
 
         SpawnFood();
+    }
+
+    public void Setup(Snake snake)
+    {
+        this.snake = snake;
     }
 
     private void SpawnFood() {
