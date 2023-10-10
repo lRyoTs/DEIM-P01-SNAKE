@@ -15,17 +15,19 @@ public class LevelGrid
     public LevelGrid(int w, int h) {
         this.width = w;
         this.height = h;
-
-        SpawnFood();
     }
 
     public void Setup(Snake snake)
     {
         this.snake = snake;
+        SpawnFood();
     }
 
     private void SpawnFood() {
-        foodGridPosition = new Vector2Int(Random.Range(-width/2,width/2), Random.Range(-height/2,height/2));
+        do { 
+            foodGridPosition = new Vector2Int(Random.Range(-width / 2, width / 2), Random.Range(-height / 2, height / 2));
+        } while (foodGridPosition == snake.GetGridPosition());
+        
 
         foodGameObject = new GameObject("Food");
         SpriteRenderer foodSpriteRenderer = foodGameObject.AddComponent<SpriteRenderer>();

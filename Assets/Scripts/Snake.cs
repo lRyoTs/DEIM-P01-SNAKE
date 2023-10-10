@@ -48,6 +48,8 @@ public class Snake : MonoBehaviour
             transform.position = new Vector3(gridPosition.x, gridPosition.y, 0);
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirection));
 
+            levelGrid.SnakeMoved(gridPosition); //Check if snake over food
+
             hasInput = false;
         }
 
@@ -57,57 +59,58 @@ public class Snake : MonoBehaviour
     {
         verticalInput = Input.GetAxisRaw("Vertical");
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        
 
-        //Pressed W
-        if ((verticalInput > 0) && !hasInput)
+        if (!hasInput)
         {
-            if (gridMoveDirection.x != 0) // Check if its going horizontal
+            //Pressed W
+            if ((verticalInput > 0) /*&& !hasInput*/)
             {
-                //Change direction to UP
-                gridMoveDirection.x = 0;
-                gridMoveDirection.y = 1;
-                hasInput = true;
-            }
-        }
-
-        //Pressed S
-        if ((verticalInput < 0) && !hasInput)
-        {
-            if (gridMoveDirection.x != 0)
-            {
-                //Change direction to DOWN
-                gridMoveDirection.x = 0;
-                gridMoveDirection.y = -1;
-                hasInput = true;
-            }
-        }
-
-        //Pressed D
-        if ((horizontalInput > 0) && !hasInput)
-        {
-            if (gridMoveDirection.y != 0)
-            {
-                //Change direction to RIGHT
-                gridMoveDirection.x = 1;
-                gridMoveDirection.y = 0;
-                hasInput = true;
+                if (gridMoveDirection.x != 0) // Check if its going horizontal
+                {
+                    //Change direction to UP
+                    gridMoveDirection.x = 0;
+                    gridMoveDirection.y = 1;
+                    hasInput = true;
+                }
             }
 
-        }
-
-        //Pressed A
-        if ((horizontalInput < 0) && !hasInput)
-        {
-            if (gridMoveDirection.y != 0)
+            //Pressed S
+            if ((verticalInput < 0) /*&& !hasInput*/)
             {
-                //Change direction to LEFT    
-                gridMoveDirection.x = -1;
-                gridMoveDirection.y = 0;
-                hasInput = true;
+                if (gridMoveDirection.x != 0)
+                {
+                    //Change direction to DOWN
+                    gridMoveDirection.x = 0;
+                    gridMoveDirection.y = -1;
+                    hasInput = true;
+                }
+            }
+
+            //Pressed D
+            if ((horizontalInput > 0) /*&& !hasInput*/)
+            {
+                if (gridMoveDirection.y != 0)
+                {
+                    //Change direction to RIGHT
+                    gridMoveDirection.x = 1;
+                    gridMoveDirection.y = 0;
+                    hasInput = true;
+                }
+
+            }
+
+            //Pressed A
+            if ((horizontalInput < 0) /*&& !hasInput*/)
+            {
+                if (gridMoveDirection.y != 0)
+                {
+                    //Change direction to LEFT    
+                    gridMoveDirection.x = -1;
+                    gridMoveDirection.y = 0;
+                    hasInput = true;
+                }
             }
         }
-        
     }
 
     private float GetAngleFromVector(Vector2Int direction) {
@@ -118,5 +121,9 @@ public class Snake : MonoBehaviour
         }
 
         return degrees -  90;
+    }
+
+    public Vector2Int GetGridPosition() {
+        return gridPosition;
     }
 }
