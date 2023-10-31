@@ -9,6 +9,10 @@ public class Snake : MonoBehaviour
     private enum Direction {
         Up, Down, Left, Right
     }
+    private enum State {
+        Alive,
+        Dead
+    }
 
     private class SnakeBodyPart {
         private Transform transform;
@@ -137,6 +141,8 @@ public class Snake : MonoBehaviour
     private List<SnakeMovePosition> movePositionList;
     private List<SnakeBodyPart> snakeBodyPartsList;
 
+    private State state;
+
     void Awake()
     {
         startGridPosition = new Vector2Int(0, 0);
@@ -148,12 +154,22 @@ public class Snake : MonoBehaviour
         snakeBodySize = 0;
         movePositionList = new List<SnakeMovePosition>();
         snakeBodyPartsList = new List<SnakeBodyPart>();
-}
+
+        state = State.Alive;
+    }
 
     void Update()
-    {   
-        HandleMoveDirection();
-        HandleGridMovement();
+    {
+        switch (state)
+        {
+            case State.Alive:
+                HandleMoveDirection();
+                HandleGridMovement();
+                break;
+            case State.Dead:
+                break;
+        }
+
     }
 
     public void Setup(LevelGrid levelGrid) {
@@ -195,7 +211,7 @@ public class Snake : MonoBehaviour
             }
 
             gridPosition += gridMoveDirectionVector;
-
+            gridPosition = levelGrid.ValidateGridPosition(gridPosition); //Check if out of bounds
 
             // Does Snake eat food?
             bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosition);
@@ -210,6 +226,13 @@ public class Snake : MonoBehaviour
                 movePositionList.RemoveAt(movePositionList.Count - 1);
             }
 
+
+            //Check Game Over here because the posicion
+            foreach (SnakeMovePosition move in movePositionList) {
+                if (gridPosition == move.GetGridPosition()) {
+                    state = State.Dead;
+                }
+            }
 
             transform.position = new Vector3(gridPosition.x, gridPosition.y, 0);
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector));
