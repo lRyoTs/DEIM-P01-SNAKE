@@ -218,6 +218,7 @@ public class Snake : MonoBehaviour
             if (snakeAteFood)
             {
                 // GrowBody
+                SoundManager.PlaySound(SoundManager.Sound.SnakeEat);
                 snakeBodySize++;
                 CreateBodyPart();
             }
@@ -237,6 +238,7 @@ public class Snake : MonoBehaviour
 
             transform.position = new Vector3(gridPosition.x, gridPosition.y, 0);
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector));
+            SoundManager.PlaySound(SoundManager.Sound.SnakeMove);
 
             hasInput = false;
 

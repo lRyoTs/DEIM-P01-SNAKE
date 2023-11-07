@@ -16,12 +16,16 @@ public class PauseUI : MonoBehaviour
         }
         instance = this;
 
-        mainMenuButton.onClick.AddListener(() => { 
+        mainMenuButton.onClick.AddListener(() => {
+            SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
             Time.timeScale = 1f; 
             Loader.Load(Loader.Scene.MainMenu);
         });
 
-        continueButton.onClick.AddListener(() => { GameManager.Instance.ResumeGame(); });
+        continueButton.onClick.AddListener(() => {
+            SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
+            GameManager.Instance.ResumeGame(); 
+        });
         
         Hide();
     }

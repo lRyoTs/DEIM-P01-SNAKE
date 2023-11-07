@@ -1039,9 +1039,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6415094, g: 0.24510503, b: 0.24510503, a: 1}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_SelectedColor: {r: 0.036716342, g: 1, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1160,9 +1160,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6415094, g: 0.24510503, b: 0.24510503, a: 1}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_SelectedColor: {r: 0.036716342, g: 1, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1252,6 +1252,17 @@ MonoBehaviour:
   snakeHeadSprite: {fileID: 21300000, guid: e8fdb44c3483d5d4ba7343caf28cf2d6, type: 3}
   foodSprite: {fileID: 21300000, guid: 5f5b0bc5281d4734bbba62cee1cf1dea, type: 3}
   snakeBodySprite: {fileID: 21300000, guid: 27b10468f8f76bd4394e38d795de0b40, type: 3}
+  soundAudioClipsArray:
+  - sound: 0
+    audioClip: {fileID: 8300000, guid: b4917387e3b823644a106299799d9a36, type: 3}
+  - sound: 1
+    audioClip: {fileID: 8300000, guid: 326bdd055ff7db14a9053f8d214f4111, type: 3}
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: eab822eecf852e144b30cd06194ceacf, type: 3}
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: a30697aa96a269c46a9fec4ae34ffa5a, type: 3}
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: 62598e38e8bf2704d8cfd40aa7777287, type: 3}
 --- !u!4 &823566091
 Transform:
   m_ObjectHideFlags: 0
@@ -1328,9 +1339,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6415094, g: 0.24510503, b: 0.24510503, a: 1}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_SelectedColor: {r: 0.036716342, g: 1, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

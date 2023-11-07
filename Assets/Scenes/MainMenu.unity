@@ -915,9 +915,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6415094, g: 0.24510503, b: 0.24510503, a: 1}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_SelectedColor: {r: 0.036716342, g: 1, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1449,6 +1449,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792094208}
   m_CullTransparentMesh: 1
+--- !u!1 &818884249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 818884250}
+  - component: {fileID: 818884251}
+  m_Layer: 0
+  m_Name: GameAssets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &818884250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818884249}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.3487396, y: -3.4860504, z: 0.19027661}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &818884251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818884249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3207ddce0ea060e41ae54c6e9aefda84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snakeHeadSprite: {fileID: 21300000, guid: e8fdb44c3483d5d4ba7343caf28cf2d6, type: 3}
+  foodSprite: {fileID: 21300000, guid: 5f5b0bc5281d4734bbba62cee1cf1dea, type: 3}
+  snakeBodySprite: {fileID: 21300000, guid: 27b10468f8f76bd4394e38d795de0b40, type: 3}
+  soundAudioClipsArray:
+  - sound: 0
+    audioClip: {fileID: 8300000, guid: b4917387e3b823644a106299799d9a36, type: 3}
+  - sound: 1
+    audioClip: {fileID: 8300000, guid: 326bdd055ff7db14a9053f8d214f4111, type: 3}
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: eab822eecf852e144b30cd06194ceacf, type: 3}
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: a30697aa96a269c46a9fec4ae34ffa5a, type: 3}
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: 62598e38e8bf2704d8cfd40aa7777287, type: 3}
 --- !u!1 &888988398
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,3 +2511,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1669065895}
   - {fileID: 1656516048}
+  - {fileID: 818884250}

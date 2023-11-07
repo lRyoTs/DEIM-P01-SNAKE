@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         score = 0;
         AddScore(0);
+
+        SoundManager.CreateSoundManagerGameobject();
     }
 
     private void Update()
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
 
     public void SnakeDied()
     {
+        SoundManager.PlaySound(SoundManager.Sound.SnakeDie);
         GameOverUI.Instance.Show();
     }
 

@@ -17,7 +17,10 @@ public class GameOverUI : MonoBehaviour
         }
         Instance = this;
 
-        restartButton.onClick.AddListener(() => { Loader.Load(Loader.Scene.Game); });
+        restartButton.onClick.AddListener(() => { 
+            SoundManager.PlaySound(SoundManager.Sound.ButtonClick); 
+            Loader.Load(Loader.Scene.Game); 
+        });
 
         Hide();
     }
