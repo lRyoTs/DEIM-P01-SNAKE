@@ -24,10 +24,10 @@ public class MainMenuUI : MonoBehaviour
     }
 
     private void ShowInstructionPanel() {
-    
+        instructionPanel.SetActive(true);
     }
 
     private void HideInstructionPanel() {
-
+        instructionPanel.SetActive(false);
     }
 }

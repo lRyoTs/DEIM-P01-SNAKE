@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     private Snake snake;
 
     private ScoreUI scoreUI;
+
+    private bool isPaused = false;
     #endregion
 
     private void Awake()
@@ -44,8 +46,24 @@ public class GameManager : MonoBehaviour
 
         scoreUI = GetComponentInChildren<ScoreUI>();
 
+        isPaused = false;
         score = 0;
         AddScore(0);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+               PauseGame();
+            }
+        }
     }
 
     public int GetScore() {
@@ -55,5 +73,22 @@ public class GameManager : MonoBehaviour
     public void AddScore(int pointsToAdd) {
         this.score += pointsToAdd;
         scoreUI.UpdateScoreText(score);
+    }
+
+    public void SnakeDied()
+    {
+        GameOverUI.Instance.Show();
+    }
+
+    public void PauseGame() {
+        Time.timeScale = 0f;
+        PauseUI.instance.Show();
+        isPaused = true;
+    }
+
+    public void ResumeGame() {
+        Time.timeScale = 1f;
+        PauseUI.instance.Hide();
+        isPaused=false;
     }
 }

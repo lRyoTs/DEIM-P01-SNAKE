@@ -231,6 +231,7 @@ public class Snake : MonoBehaviour
             foreach (SnakeMovePosition move in movePositionList) {
                 if (gridPosition == move.GetGridPosition()) {
                     state = State.Dead;
+                    GameManager.Instance.SnakeDied();
                 }
             }
 
