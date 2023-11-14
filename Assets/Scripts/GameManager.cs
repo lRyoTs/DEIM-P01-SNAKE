@@ -8,16 +8,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     #region CONSTANTS
-    public const int POINTS_TO_ADD = 100;
+
     #endregion
 
     #region VARIABLES
-    private int score; // Player score
-
+    
     private LevelGrid levelGrid;
     private Snake snake;
-
-    private ScoreUI scoreUI;
 
     private bool isPaused = false;
     #endregion
@@ -44,12 +41,9 @@ public class GameManager : MonoBehaviour
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);
 
-        scoreUI = GetComponentInChildren<ScoreUI>();
-
         isPaused = false;
-        score = 0;
-        AddScore(0);
 
+        Score.InitializedStaticScore();
         SoundManager.CreateSoundManagerGameobject();
     }
 
@@ -68,19 +62,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public int GetScore() {
-        return score;
-    }
-
-    public void AddScore(int pointsToAdd) {
-        this.score += pointsToAdd;
-        scoreUI.UpdateScoreText(score);
-    }
-
     public void SnakeDied()
     {
         SoundManager.PlaySound(SoundManager.Sound.SnakeDie);
-        GameOverUI.Instance.Show();
+        GameOverUI.Instance.Show(Score.TrySetNewHighScore());
     }
 
     public void PauseGame() {

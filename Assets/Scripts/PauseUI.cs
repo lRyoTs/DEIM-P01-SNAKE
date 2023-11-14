@@ -32,7 +32,7 @@ public class PauseUI : MonoBehaviour
 
     public void SnakeDied()
     {
-        GameOverUI.Instance.Show();
+        GameOverUI.Instance.Show(Score.TrySetNewHighScore());
     }
 
     public void Show()
