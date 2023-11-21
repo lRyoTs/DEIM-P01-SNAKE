@@ -20,9 +20,9 @@ public class LevelGrid
     public void Setup(Snake snake)
     {
         this.snake = snake;
-        SpawnFood();
+        //SpawnFood();
     }
-
+    /*
     private void SpawnFood() {
         do { 
             foodGridPosition = new Vector2Int(Random.Range(-width / 2, width / 2), Random.Range(-height / 2, height / 2));
@@ -49,6 +49,7 @@ public class LevelGrid
             return false;
         }
     }
+    */
 
     public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
         int w = Half(width);

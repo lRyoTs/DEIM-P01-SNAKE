@@ -134,6 +134,7 @@ public class Snake : MonoBehaviour
     private float gridMoveTimerMax = 0.35f;
 
     private LevelGrid levelGrid;
+    private Food food;
 
     private bool hasInput = false; //Check if there is already an input
     
@@ -176,6 +177,11 @@ public class Snake : MonoBehaviour
         this.levelGrid = levelGrid;
     }
 
+    public void Setup(Food food)
+    {
+        this.food = food;
+    }
+
     private void HandleGridMovement() {
         gridMoveTimer += Time.deltaTime;
 
@@ -214,7 +220,7 @@ public class Snake : MonoBehaviour
             gridPosition = levelGrid.ValidateGridPosition(gridPosition); //Check if out of bounds
 
             // Does Snake eat food?
-            bool snakeAteFood = levelGrid.TrySnakeEatFood(gridPosition);
+            bool snakeAteFood = food.TrySnakeEatFood(gridPosition);
             if (snakeAteFood)
             {
                 // GrowBody
