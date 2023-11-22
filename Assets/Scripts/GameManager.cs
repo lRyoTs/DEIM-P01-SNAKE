@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("THere is more than Instance of GameManager");
         }
         Instance = this;
+
+        Snake.OnSnakeEat += Snake_OnSnakeEat;
     }
 
     // Start is called before the first frame update
@@ -42,6 +46,7 @@ public class GameManager : MonoBehaviour
         levelGrid.Setup(snake);
 
         SpawnFood(20,20);
+
         isPaused = false;
 
         Score.InitializedStaticScore();
@@ -61,6 +66,11 @@ public class GameManager : MonoBehaviour
                PauseGame();
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        Snake.OnSnakeEat -= Snake_OnSnakeEat;
     }
 
     public void SnakeDied()
@@ -99,5 +109,11 @@ public class GameManager : MonoBehaviour
 
         snake.Setup(food);
         food.Setup(snake);
+    }
+
+    private void Snake_OnSnakeEat(object sender, EventArgs e)
+    {
+        //What has to happen once Event is called
+        SpawnFood(20,20);
     }
 }

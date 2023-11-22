@@ -36,7 +36,6 @@ public static class Score
         score = 0;
         AddScore(0);
         ScoreUI.instance.UpdateHighScoreText();
-        OnHighScoreChange = null;
     }
 
     public static int GetScore()
@@ -49,7 +48,4 @@ public static class Score
         score += pointsToAdd;
         ScoreUI.instance.UpdateScoreText(score);
     }
-
-
-
 }

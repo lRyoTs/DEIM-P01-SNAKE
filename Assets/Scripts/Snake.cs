@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -144,6 +145,8 @@ public class Snake : MonoBehaviour
 
     private State state;
 
+    public static event EventHandler OnSnakeEat;
+
     void Awake()
     {
         startGridPosition = new Vector2Int(0, 0);
@@ -227,6 +230,10 @@ public class Snake : MonoBehaviour
                 SoundManager.PlaySound(SoundManager.Sound.SnakeEat);
                 snakeBodySize++;
                 CreateBodyPart();
+                if (OnSnakeEat != null)
+                {
+                   OnSnakeEat(null, EventArgs.Empty);
+                }
             }
 
             if (movePositionList.Count > snakeBodySize) {
