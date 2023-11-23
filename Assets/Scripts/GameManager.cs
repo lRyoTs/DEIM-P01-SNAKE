@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     
     private LevelGrid levelGrid;
     private Snake snake;
+    private Food food;
 
     private bool isPaused = false;
     #endregion
@@ -34,23 +35,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Configuration Snake
-        GameObject snakeHeadGameObject = new GameObject("Snake Head");
-        SpriteRenderer snakeSpriteRenderer = snakeHeadGameObject.AddComponent<SpriteRenderer>();
-        snakeSpriteRenderer.sprite = GameAssets.Instance.snakeHeadSprite;
-        snake = snakeHeadGameObject.AddComponent<Snake>();
-
-        //Configuration LevelGrid
-        levelGrid = new LevelGrid(20,20);
-        snake.Setup(levelGrid);
-        levelGrid.Setup(snake);
-
-        SpawnFood(20,20);
-
-        isPaused = false;
-
-        Score.InitializedStaticScore();
-        SoundManager.CreateSoundManagerGameobject();
+        StartGame(true);
     }
 
     private void Update()
@@ -111,9 +96,33 @@ public class GameManager : MonoBehaviour
         food.Setup(snake);
     }
 
+    public void StartGame(bool mode) {
+        //Configuration Snake
+        GameObject snakeHeadGameObject = new GameObject("Snake Head");
+        SpriteRenderer snakeSpriteRenderer = snakeHeadGameObject.AddComponent<SpriteRenderer>();
+        snakeSpriteRenderer.sprite = GameAssets.Instance.snakeHeadSprite;
+        snake = snakeHeadGameObject.AddComponent<Snake>();
+
+        //Configuration LevelGrid
+        levelGrid = new LevelGrid(20,20);
+        snake.Setup(levelGrid);
+        levelGrid.Setup(snake);
+
+        SpawnFood(20,20);
+
+        isPaused = false;
+
+        Score.InitializedStaticScore();
+        SoundManager.CreateSoundManagerGameobject();
+    }
+
     private void Snake_OnSnakeEat(object sender, EventArgs e)
     {
         //What has to happen once Event is called
         SpawnFood(20,20);
+    }
+
+    private void Food_OnFoodSpawn(object sender, EventArgs e) {
+        StartCoroutine(food.CountDownToInvisible());
     }
 }

@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using Object = UnityEngine.Object;
 
 [RequireComponent (typeof(SpriteRenderer))]
 public class Food : MonoBehaviour
@@ -8,6 +11,10 @@ public class Food : MonoBehaviour
     private Vector2Int foodGridPosition;
     private SpriteRenderer foodSpriteRenderer;
     private Snake snake;
+    private LevelGrid levelGrid;
+
+    private GameObject foodGameObject;
+    public  static event EventHandler OnFoodSpawn;
 
     private void Awake()
     {
@@ -26,7 +33,7 @@ public class Food : MonoBehaviour
         if (snakeGridPosition == foodGridPosition)
         {
             Object.Destroy(gameObject);
-            //SpawnFood();
+            //SpawnFood(20,20);
             Score.AddScore(Score.POINTS_TO_ADD); //Increase score
             return true;
         }
@@ -43,7 +50,13 @@ public class Food : MonoBehaviour
     public void Setup(Snake snake)
     {
         this.snake = snake;
+        //SpawnFood(20,20);
     }
+
+    public void Setup(LevelGrid levelGrid) {
+        this.levelGrid = levelGrid;
+    }
+
 
     /*
     private void SpawnFood(int width, int height)
@@ -60,4 +73,9 @@ public class Food : MonoBehaviour
         foodGameObject.transform.position = new Vector3(foodGridPosition.x, foodGridPosition.y, 0);
     }
     */
+
+    public IEnumerator CountDownToInvisible() {
+        yield return new WaitForSeconds(2f);
+        MakeInvisible();
+    }
 }
