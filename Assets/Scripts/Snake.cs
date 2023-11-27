@@ -132,7 +132,7 @@ public class Snake : MonoBehaviour
     private float verticalInput, horizontalInput;
 
     private float gridMoveTimer;
-    private float gridMoveTimerMax = 0.35f;
+    private float gridMoveTimerMax = 0.15f;
 
     private LevelGrid levelGrid;
     private Food food;

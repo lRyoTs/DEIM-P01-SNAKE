@@ -40,7 +40,8 @@ public class PauseUI : MonoBehaviour
         gameObject.SetActive(true);    
     }
 
-    public void Hide() {
+    public void Hide() 
+    {
         gameObject.SetActive(false);
     }
 }

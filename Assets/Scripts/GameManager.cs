@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
 
-        Snake.OnSnakeEat += Snake_OnSnakeEat;
+        //Snake.OnSnakeEat += Snake_OnSnakeEat;
+        Food.OnFoodSpawn += Food_OnFoodSpawn;
     }
 
     // Start is called before the first frame update
@@ -55,7 +56,8 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Snake.OnSnakeEat -= Snake_OnSnakeEat;
+        //Snake.OnSnakeEat -= Snake_OnSnakeEat;
+        Food.OnFoodSpawn -= Food_OnFoodSpawn;
     }
 
     public void SnakeDied()
@@ -76,26 +78,6 @@ public class GameManager : MonoBehaviour
         isPaused=false;
     }
 
-    private void SpawnFood(int width, int height)
-    {
-        Vector2Int foodGridPosition;
-        do
-        {
-            foodGridPosition = new Vector2Int(Random.Range(-width / 2, width / 2), Random.Range(-height / 2, height / 2));
-        } while (snake.GetSnakeFullBodyGridPosition().Contains(foodGridPosition));
-
-
-        GameObject foodGameObject = new GameObject("Food");
-        SpriteRenderer foodSpriteRenderer = foodGameObject.AddComponent<SpriteRenderer>();
-        foodSpriteRenderer.sprite = GameAssets.Instance.foodSprite;
-        foodGameObject.transform.position = new Vector3(foodGridPosition.x, foodGridPosition.y, 0);
-        Food food = foodGameObject.AddComponent<Food>();
-
-
-        snake.Setup(food);
-        food.Setup(snake);
-    }
-
     public void StartGame(bool mode) {
         //Configuration Snake
         GameObject snakeHeadGameObject = new GameObject("Snake Head");
@@ -108,7 +90,9 @@ public class GameManager : MonoBehaviour
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);
 
-        SpawnFood(20,20);
+        //SpawnFood(20,20);
+        food = new Food(levelGrid);
+        food.Setup(snake);
 
         isPaused = false;
 
@@ -116,13 +100,10 @@ public class GameManager : MonoBehaviour
         SoundManager.CreateSoundManagerGameobject();
     }
 
-    private void Snake_OnSnakeEat(object sender, EventArgs e)
-    {
-        //What has to happen once Event is called
-        SpawnFood(20,20);
-    }
-
     private void Food_OnFoodSpawn(object sender, EventArgs e) {
-        StartCoroutine(food.CountDownToInvisible());
+        snake.Setup(food);
+        if (DataPersistence.sharedInstance.GetMode() >= DataPersistence.SPECIAL_MODE) {
+            StartCoroutine(food.CountDownToInvisible());
+        } 
     }
 }

@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 [RequireComponent (typeof(SpriteRenderer))]
-public class Food : MonoBehaviour
+public class Food
 {
     private Vector2Int foodGridPosition;
     private SpriteRenderer foodSpriteRenderer;
@@ -16,24 +17,16 @@ public class Food : MonoBehaviour
     private GameObject foodGameObject;
     public  static event EventHandler OnFoodSpawn;
 
-    private void Awake()
-    {
-        foodSpriteRenderer = GetComponent<SpriteRenderer>();
-        
-        Invoke("MakeInvisible", 2f);
-    }
-
-    private void Start()
-    {
-        foodGridPosition = new Vector2Int((int)transform.position.x,(int)transform.position.y);
+    public Food(LevelGrid levelGrid) {
+        this.levelGrid = levelGrid;
     }
 
     public bool TrySnakeEatFood(Vector2Int snakeGridPosition)
     {
         if (snakeGridPosition == foodGridPosition)
         {
-            Object.Destroy(gameObject);
-            //SpawnFood(20,20);
+            Object.Destroy(foodGameObject);
+            SpawnFood(20,20);
             Score.AddScore(Score.POINTS_TO_ADD); //Increase score
             return true;
         }
@@ -50,15 +43,13 @@ public class Food : MonoBehaviour
     public void Setup(Snake snake)
     {
         this.snake = snake;
-        //SpawnFood(20,20);
+        SpawnFood(20,20);
     }
 
     public void Setup(LevelGrid levelGrid) {
         this.levelGrid = levelGrid;
     }
-
-
-    /*
+    
     private void SpawnFood(int width, int height)
     {
         do
@@ -68,12 +59,15 @@ public class Food : MonoBehaviour
 
 
         foodGameObject = new GameObject("Food");
-        SpriteRenderer foodSpriteRenderer = foodGameObject.AddComponent<SpriteRenderer>();
+        foodSpriteRenderer = foodGameObject.AddComponent<SpriteRenderer>();
         foodSpriteRenderer.sprite = GameAssets.Instance.foodSprite;
         foodGameObject.transform.position = new Vector3(foodGridPosition.x, foodGridPosition.y, 0);
-    }
-    */
 
+        if (OnFoodSpawn != null) {
+            OnFoodSpawn(null, EventArgs.Empty);
+        }
+    }
+    
     public IEnumerator CountDownToInvisible() {
         yield return new WaitForSeconds(2f);
         MakeInvisible();

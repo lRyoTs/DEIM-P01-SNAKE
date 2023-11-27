@@ -51,6 +51,14 @@ public class LevelGrid
     }
     */
 
+    public int GetHeight() {
+        return height;
+    }
+    public int GetWidth()
+    {
+        return width;
+    }
+
     public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
         int w = Half(width);
         int h = Half(height);

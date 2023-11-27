@@ -10,14 +10,16 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Button playButton;
     [SerializeField] private Button instructionButton;
     [SerializeField] private Button closeInstructionButton;
+    [SerializeField] private Button closeSelectButton;
 
     [SerializeField] private GameObject instructionPanel;
+    [SerializeField] private GameObject selectPanel;
 
     private void Awake()
     {
         playButton.onClick.AddListener(() => { 
-            Loader.Load(Loader.Scene.Game); 
-            SoundManager.PlaySound(SoundManager.Sound.ButtonClick); 
+            SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
+            ShowSelectPanel();
         });
 
         instructionButton.onClick.AddListener(() => { 
@@ -35,7 +37,13 @@ public class MainMenuUI : MonoBehaviour
             HideInstructionPanel(); 
         });
 
+        closeSelectButton.onClick.AddListener(() => {
+            SoundManager.PlaySound(SoundManager.Sound.ButtonClick);
+            HideSelectPanel();
+        });
+
         HideInstructionPanel();
+        HideSelectPanel();
 
         SoundManager.CreateSoundManagerGameobject();
     }
@@ -46,5 +54,15 @@ public class MainMenuUI : MonoBehaviour
 
     private void HideInstructionPanel() {
         instructionPanel.SetActive(false);
+    }
+
+    private void ShowSelectPanel()
+    {
+        selectPanel.SetActive(true);
+    }
+
+    private void HideSelectPanel()
+    {
+        selectPanel.SetActive(false);
     }
 }
