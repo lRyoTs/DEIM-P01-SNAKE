@@ -132,7 +132,7 @@ public class Snake : MonoBehaviour
     private float verticalInput, horizontalInput;
 
     private float gridMoveTimer;
-    private float gridMoveTimerMax = 0.15f;
+    private float gridMoveTimerMax = 0.2f;
 
     private LevelGrid levelGrid;
     private Food food;
@@ -144,8 +144,6 @@ public class Snake : MonoBehaviour
     private List<SnakeBodyPart> snakeBodyPartsList;
 
     private State state;
-
-    public static event EventHandler OnSnakeEat;
 
     void Awake()
     {
@@ -230,10 +228,6 @@ public class Snake : MonoBehaviour
                 SoundManager.PlaySound(SoundManager.Sound.SnakeEat);
                 snakeBodySize++;
                 CreateBodyPart();
-                if (OnSnakeEat != null)
-                {
-                   OnSnakeEat(null, EventArgs.Empty);
-                }
             }
 
             if (movePositionList.Count > snakeBodySize) {

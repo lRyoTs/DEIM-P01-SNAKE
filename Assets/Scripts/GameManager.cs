@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
     private Food food;
 
     private bool isPaused = false;
+
+    private Coroutine runningCoroutine;
     #endregion
 
     private void Awake()
@@ -29,14 +32,13 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
 
-        //Snake.OnSnakeEat += Snake_OnSnakeEat;
         Food.OnFoodSpawn += Food_OnFoodSpawn;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        StartGame(true);
+        StartGame();
     }
 
     private void Update()
@@ -56,7 +58,6 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        //Snake.OnSnakeEat -= Snake_OnSnakeEat;
         Food.OnFoodSpawn -= Food_OnFoodSpawn;
     }
 
@@ -78,7 +79,7 @@ public class GameManager : MonoBehaviour
         isPaused=false;
     }
 
-    public void StartGame(bool mode) {
+    public void StartGame() {
         //Configuration Snake
         GameObject snakeHeadGameObject = new GameObject("Snake Head");
         SpriteRenderer snakeSpriteRenderer = snakeHeadGameObject.AddComponent<SpriteRenderer>();
@@ -103,7 +104,15 @@ public class GameManager : MonoBehaviour
     private void Food_OnFoodSpawn(object sender, EventArgs e) {
         snake.Setup(food);
         if (DataPersistence.sharedInstance.GetMode() >= DataPersistence.SPECIAL_MODE) {
-            StartCoroutine(food.CountDownToInvisible());
+            if (runningCoroutine != null) {
+                StopCoroutine(runningCoroutine);
+            }
+            runningCoroutine = StartCoroutine(TimerToInvisible(2f));
         } 
+    }
+
+    private IEnumerator TimerToInvisible(float timer) {
+        yield return new WaitForSeconds(timer);
+        food.MakeInvisible();
     }
 }

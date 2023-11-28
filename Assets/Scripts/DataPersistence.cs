@@ -12,12 +12,14 @@ public class DataPersistence : MonoBehaviour
 
     private void Awake()
     {
-        if(sharedInstance != null){
-            Debug.Log("There is more than 1 instance of DataPersistence");
+        if (sharedInstance == null)
+        {
+            sharedInstance = this;
+            DontDestroyOnLoad(this);
         }
-
-        sharedInstance = this;
-        DontDestroyOnLoad(this);
+        else {
+            Destroy(gameObject);
+        }
     }
 
     public void SetMode(int selectedMode)

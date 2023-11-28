@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SelectModeUI : MonoBehaviour
 {
-
     [SerializeField] private Button normalModeButton;
     [SerializeField] private Button specialModeButton;
 
