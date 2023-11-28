@@ -14,11 +14,10 @@ public class Food
     private GameObject foodGameObject;
     private Vector2Int foodGridPosition;
     private SpriteRenderer foodSpriteRenderer;
-    #endregion
 
     private Snake snake;
     private LevelGrid levelGrid;
-
+    #endregion
     public  static event EventHandler OnFoodSpawn;
 
     public Food(LevelGrid levelGrid) {
