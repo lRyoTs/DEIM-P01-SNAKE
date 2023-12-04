@@ -5,19 +5,14 @@ using UnityEngine.UI;
 
 public class SelectModeUI : MonoBehaviour
 {
-    [SerializeField] private Button normalModeButton;
-    [SerializeField] private Button specialModeButton;
+    [SerializeField] private Button startGameButton;
+    [SerializeField] private Toggle invisibleFoodToggle;
 
     private void Awake()
     {
-        normalModeButton.onClick.AddListener(() => { 
+        startGameButton.onClick.AddListener(() => { 
             Loader.Load(Loader.Scene.Game);
-            DataPersistence.sharedInstance.SetMode(DataPersistence.NORMAL_MODE);
-        });
-
-        specialModeButton.onClick.AddListener(() => { 
-            Loader.Load(Loader.Scene.Game);
-            DataPersistence.sharedInstance.SetMode(DataPersistence.SPECIAL_MODE);
+            DataPersistence.sharedInstance.SetMode(invisibleFoodToggle.isOn);
         });
     }
 }

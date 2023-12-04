@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class DataPersistence : MonoBehaviour
 {
-    public const int NORMAL_MODE = 0;
-    public const int SPECIAL_MODE = 1;
     public static DataPersistence sharedInstance;
-    private int mode; //[0] normal [1] special
+    private bool mode;
 
 
     private void Awake()
@@ -22,12 +20,12 @@ public class DataPersistence : MonoBehaviour
         }
     }
 
-    public void SetMode(int selectedMode)
+    public void SetMode(bool selectedMode)
     {
         mode = selectedMode;
     }
 
-    public int GetMode() {
+    public bool GetMode() {
         return mode;
     }
 }

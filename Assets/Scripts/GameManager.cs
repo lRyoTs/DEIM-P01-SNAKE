@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     private bool isPaused = false;
 
-    private Coroutine runningCoroutine;
+    [SerializeField] private Coroutine runningCoroutine;
     #endregion
 
     private void Awake()
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     private void Food_OnFoodSpawn(object sender, EventArgs e) {
         snake.Setup(food);
-        if (DataPersistence.sharedInstance.GetMode() >= DataPersistence.SPECIAL_MODE) {
+        if (DataPersistence.sharedInstance.GetMode()) {
             if (runningCoroutine != null) {
                 StopCoroutine(runningCoroutine);
             }
