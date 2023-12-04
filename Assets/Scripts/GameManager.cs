@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
 
-        Food.OnFoodSpawn += Food_OnFoodSpawn;
+        EventManager.OnFoodSpawn += Food_OnFoodSpawn;
     }
 
     // Start is called before the first frame update
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Food.OnFoodSpawn -= Food_OnFoodSpawn;
+        EventManager.OnFoodSpawn -= Food_OnFoodSpawn;
     }
 
     public void SnakeDied()
@@ -91,7 +91,6 @@ public class GameManager : MonoBehaviour
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);
 
-        //SpawnFood(20,20);
         food = new Food(levelGrid);
         food.Setup(snake);
 
@@ -107,7 +106,7 @@ public class GameManager : MonoBehaviour
             if (runningCoroutine != null) {
                 StopCoroutine(runningCoroutine);
             }
-            runningCoroutine = StartCoroutine(TimerToInvisible(2f));
+            runningCoroutine = StartCoroutine(TimerToInvisible(Food.TIMER_TO_INVISIBLE));
         } 
     }
 

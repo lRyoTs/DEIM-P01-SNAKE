@@ -1,15 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 [RequireComponent (typeof(SpriteRenderer))]
 public class Food
 {
+    public const float TIMER_TO_INVISIBLE = 2f;
     #region ATTRIBUTES
     private GameObject foodGameObject;
     private Vector2Int foodGridPosition;
@@ -18,7 +12,6 @@ public class Food
     private Snake snake;
     private LevelGrid levelGrid;
     #endregion
-    public  static event EventHandler OnFoodSpawn;
 
     public Food(LevelGrid levelGrid) {
         this.levelGrid = levelGrid;
@@ -65,8 +58,6 @@ public class Food
         foodSpriteRenderer.sprite = GameAssets.Instance.foodSprite;
         foodGameObject.transform.position = new Vector3(foodGridPosition.x, foodGridPosition.y, 0);
 
-        if (OnFoodSpawn != null) {
-            OnFoodSpawn(null, EventArgs.Empty);
-        }
+        EventManager.CallEventOnFoodSpawn();
     }
 }
