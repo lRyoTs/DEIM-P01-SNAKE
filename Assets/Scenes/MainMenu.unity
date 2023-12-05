@@ -2077,8 +2077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b495430559a35894d9910d96db5f150f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalModeButton: {fileID: 1367318802}
-  specialModeButton: {fileID: 0}
+  startGameButton: {fileID: 1367318802}
   invisibleFoodToggle: {fileID: 423066259}
 --- !u!114 &805653805
 MonoBehaviour:

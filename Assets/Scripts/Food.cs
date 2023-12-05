@@ -4,6 +4,7 @@ using UnityEngine;
 public class Food
 {
     public const float TIMER_TO_INVISIBLE = 2f;
+    
     #region ATTRIBUTES
     private GameObject foodGameObject;
     private Vector2Int foodGridPosition;

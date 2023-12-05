@@ -10,19 +10,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    #region CONSTANTS
-
-    #endregion
-
     #region VARIABLES
-    
     private LevelGrid levelGrid;
     private Snake snake;
     private Food food;
 
     private bool isPaused = false;
 
-    [SerializeField] private Coroutine runningCoroutine;
+    private Coroutine runningCoroutine; //Store the current running coroutine
     #endregion
 
     private void Awake()
@@ -59,6 +54,7 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         EventManager.OnFoodSpawn -= Food_OnFoodSpawn;
+        StopAllCoroutines();
     }
 
     public void SnakeDied()
@@ -93,6 +89,7 @@ public class GameManager : MonoBehaviour
 
         food = new Food(levelGrid);
         food.Setup(snake);
+        snake.Setup(food);
 
         isPaused = false;
 
@@ -101,8 +98,9 @@ public class GameManager : MonoBehaviour
     }
 
     private void Food_OnFoodSpawn(object sender, EventArgs e) {
-        snake.Setup(food);
+        //snake.Setup(food);
         if (DataPersistence.sharedInstance.GetMode()) {
+            //Reset coroutine if there is a already running one
             if (runningCoroutine != null) {
                 StopCoroutine(runningCoroutine);
             }
@@ -110,6 +108,11 @@ public class GameManager : MonoBehaviour
         } 
     }
 
+    /// <summary>
+    /// Coroutine that makes food invisible
+    /// </summary>
+    /// <param name="timer"></param>
+    /// <returns></returns>
     private IEnumerator TimerToInvisible(float timer) {
         yield return new WaitForSeconds(timer);
         food.MakeInvisible();
