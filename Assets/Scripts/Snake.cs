@@ -10,6 +10,7 @@ public class Snake : MonoBehaviour
     private enum Direction {
         Up, Down, Left, Right
     }
+    
     private enum State {
         Alive,
         Dead
@@ -135,7 +136,7 @@ public class Snake : MonoBehaviour
     private float gridMoveTimerMax = 0.2f;
 
     private LevelGrid levelGrid;
-    private Food food;
+    private Collectable collectable;
 
     private bool hasInput = false; //Check if there is already an input
     
@@ -178,9 +179,9 @@ public class Snake : MonoBehaviour
         this.levelGrid = levelGrid;
     }
 
-    public void Setup(Food food)
+    public void Setup(Collectable collectable)
     {
-        this.food = food;
+        this.collectable = collectable;
     }
 
     private void HandleGridMovement() {
@@ -221,9 +222,10 @@ public class Snake : MonoBehaviour
             gridPosition = levelGrid.ValidateGridPosition(gridPosition); //Check if out of bounds
 
             // Does Snake eat food?
-            bool snakeAteFood = food.TrySnakeEatFood(gridPosition);
+            bool snakeAteFood = collectable.TrySnakeEat(gridPosition);
             if (snakeAteFood)
             {
+                EventManager.CallEventOnSnakeEat();
                 // GrowBody
                 SoundManager.PlaySound(SoundManager.Sound.SnakeEat);
                 snakeBodySize++;

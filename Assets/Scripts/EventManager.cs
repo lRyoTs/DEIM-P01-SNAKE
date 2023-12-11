@@ -5,11 +5,12 @@ using UnityEngine;
 
 public static class EventManager
 {
-    public static event EventHandler OnFoodSpawn;
+    public delegate void SnakeEat();
+    public static SnakeEat onSnakeEat;
 
-    public static void CallEventOnFoodSpawn() {
-        if (OnFoodSpawn != null) {
-            OnFoodSpawn(null, EventArgs.Empty);
+    public static void CallEventOnSnakeEat() {
+        if (onSnakeEat != null) {
+            onSnakeEat();
         }
     }
 }

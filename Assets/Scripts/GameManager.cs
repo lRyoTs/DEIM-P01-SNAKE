@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError("THere is more than Instance of GameManager");
         }
         Instance = this;
-
-        EventManager.OnFoodSpawn += Food_OnFoodSpawn;
     }
 
     // Start is called before the first frame update
@@ -49,12 +47,6 @@ public class GameManager : MonoBehaviour
                PauseGame();
             }
         }
-    }
-
-    private void OnDisable()
-    {
-        EventManager.OnFoodSpawn -= Food_OnFoodSpawn;
-        StopAllCoroutines();
     }
 
     public void SnakeDied()
@@ -87,34 +79,11 @@ public class GameManager : MonoBehaviour
         snake.Setup(levelGrid);
         levelGrid.Setup(snake);
 
-        food = new Food(levelGrid);
-        food.Setup(snake);
-        snake.Setup(food);
+        SpawnManager.Instance.InitializeSpawnManager(levelGrid, snake);
 
         isPaused = false;
 
         Score.InitializedStaticScore();
         SoundManager.CreateSoundManagerGameobject();
-    }
-
-    private void Food_OnFoodSpawn(object sender, EventArgs e) {
-        //snake.Setup(food);
-        if (DataPersistence.sharedInstance.GetMode()) {
-            //Reset coroutine if there is a already running one
-            if (runningCoroutine != null) {
-                StopCoroutine(runningCoroutine);
-            }
-            runningCoroutine = StartCoroutine(TimerToInvisible(Food.TIMER_TO_INVISIBLE));
-        } 
-    }
-
-    /// <summary>
-    /// Coroutine that makes food invisible
-    /// </summary>
-    /// <param name="timer"></param>
-    /// <returns></returns>
-    private IEnumerator TimerToInvisible(float timer) {
-        yield return new WaitForSeconds(timer);
-        food.MakeInvisible();
     }
 }
