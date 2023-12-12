@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Collectable : MonoBehaviour
 {
-    protected Vector2Int recollectableGridPosition;
+    protected Vector2Int collectableGridPosition;
 
     public abstract bool TrySnakeEat(Vector2Int snakeGridPosition);
 }

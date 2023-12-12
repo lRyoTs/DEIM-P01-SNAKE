@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance { get; private set; }
+    [SerializeField] private GameObject foodGameObject;
+
     private LevelGrid levelGrid;
     private Snake snake;
 
     private void Awake()
     {
         if (Instance != null) {
-            Debug.LogError("There is more than 1 instance of RecollectableSpawnManager");
+            Debug.LogError("There is more than 1 instance of SpawnManager");
         }
         Instance = this;
-        EventManager.onSnakeEat += SpawnFood;
+        EventManager.AddHandler(EventManager.EVENT.OnSnakeEat,SpawnFood);
     }
 
     public void InitializeSpawnManager(LevelGrid levelGrid, Snake snake) {
@@ -25,7 +28,7 @@ public class SpawnManager : MonoBehaviour
 
     private void OnDisable()
     {
-        EventManager.onSnakeEat -= SpawnFood;
+        EventManager.RemoveHandler(EventManager.EVENT.OnSnakeEat, SpawnFood);
     }
 
     public void SpawnFood() {
@@ -35,11 +38,7 @@ public class SpawnManager : MonoBehaviour
             foodGridPosition = new Vector2Int(Random.Range(-(levelGrid.GetWidth() / 2), levelGrid.GetWidth() / 2), Random.Range(-(levelGrid.GetHeight() / 2), levelGrid.GetHeight() / 2));
         } while (snake.GetSnakeFullBodyGridPosition().Contains(foodGridPosition));
 
-        GameObject foodGameObject = new GameObject("Food");
-        SpriteRenderer foodSpriteRenderer = foodGameObject.AddComponent<SpriteRenderer>();
-        foodSpriteRenderer.sprite = GameAssets.Instance.foodSprite;
-        foodGameObject.transform.position = new Vector3(foodGridPosition.x, foodGridPosition.y, 0);
-        Food food = foodGameObject.AddComponent<Food>();
+        Food food = Instantiate(foodGameObject, new Vector3(foodGridPosition.x, foodGridPosition.y, 0),Quaternion.identity).GetComponent<Food>();
 
         snake.Setup(food);
     }

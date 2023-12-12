@@ -5,6 +5,7 @@ using UnityEngine;
 public class DataPersistence : MonoBehaviour
 {
     public static DataPersistence sharedInstance;
+    private int fieldSize = 20;
     private bool mode;
 
 
@@ -27,5 +28,13 @@ public class DataPersistence : MonoBehaviour
 
     public bool GetMode() {
         return mode;
+    }
+
+    public void SetFieldSize(int fieldSize) {
+        this.fieldSize = fieldSize;
+    }
+
+    public int GetFieldSize() {
+        return fieldSize;
     }
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -64,7 +63,7 @@ public class GameManager : MonoBehaviour
     public void ResumeGame() {
         Time.timeScale = 1f;
         PauseUI.instance.Hide();
-        isPaused=false;
+        isPaused = false;
     }
 
     public void StartGame() {
@@ -75,9 +74,8 @@ public class GameManager : MonoBehaviour
         snake = snakeHeadGameObject.AddComponent<Snake>();
 
         //Configuration LevelGrid
-        levelGrid = new LevelGrid(20,20);
+        levelGrid = new LevelGrid(DataPersistence.sharedInstance.GetFieldSize(),DataPersistence.sharedInstance.GetFieldSize());
         snake.Setup(levelGrid);
-        levelGrid.Setup(snake);
 
         SpawnManager.Instance.InitializeSpawnManager(levelGrid, snake);
 

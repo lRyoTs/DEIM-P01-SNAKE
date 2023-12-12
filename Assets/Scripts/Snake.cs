@@ -225,7 +225,7 @@ public class Snake : MonoBehaviour
             bool snakeAteFood = collectable.TrySnakeEat(gridPosition);
             if (snakeAteFood)
             {
-                EventManager.CallEventOnSnakeEat();
+                EventManager.Broadcast(EventManager.EVENT.OnSnakeEat);
                 // GrowBody
                 SoundManager.PlaySound(SoundManager.Sound.SnakeEat);
                 snakeBodySize++;
