@@ -12,11 +12,8 @@ public class GameManager : MonoBehaviour
     #region VARIABLES
     private LevelGrid levelGrid;
     private Snake snake;
-    private Food food;
 
     private bool isPaused = false;
-
-    private Coroutine runningCoroutine; //Store the current running coroutine
     #endregion
 
     private void Awake()
